@@ -1,0 +1,71 @@
+.editor{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    .title{
+        padding: 0 20px;
+        margin: 0;
+    }
+    .editor-header{
+        display: flex;
+        background-color: #a6ccf1;
+        flex-direction: row;
+        align-items: center;
+        padding: 20px 20px;
+        .buttons-panel{
+            display: flex;
+            flex-direction: column;
+            align-self: flex-start;
+            
+            border-radius: 5px;
+            justify-content: space-around;
+            
+            @media (min-width: 570px) {
+                flex-direction: row;
+                width: 50%;
+            }
+            button{
+                background-color: #808080;
+                border-radius: 5px;
+                color: #fff;
+                background-color: #238ffa;
+                border-color: #238ffa;
+                min-height: 25px;
+                cursor: pointer;
+                margin: 5px 0;
+                min-height: 30px;
+                @media (min-width: 570px) {
+                    margin: 0;
+                }
+            }
+        }
+    }
+    .editor-workspace{
+        display: flex;
+        flex-direction: column;
+        padding: 0 10px;
+        background-color: #cee4fa;
+        .element-root{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            position: relative;
+            margin: 20px;
+            padding: 0 10px;
+            border: 3px solid #2a8cee;
+            .delete-element-button{
+                position: absolute;
+                top: -15px;
+                left: -15px;
+                border-radius: 50%;
+                min-width: 30px;
+                min-height: 30px;
+                padding: 0;
+                border: 0;
+                background-image: url('../assets/remove.png');
+                background-size: cover;
+                cursor: pointer;
+            }
+        }
+    }
+}

@@ -1,0 +1,69 @@
+.tree-element{
+    // border: 1px solid #2a7bcc;
+    background-color: #cee4fa;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 20px 0;
+    width: 100%;
+    .buttons-panel{
+        width: 20%;
+        display: flex;
+        flex-direction: column;
+        button{
+            background-color: #ecf5ff;
+            border-radius: 5px;
+            color: #409eff;
+            border: 1px #b3d8ff solid;
+            min-height: 25px;
+            cursor: pointer;
+        }
+    }
+    .attributes-panel{
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        .attribute{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 0 10px;
+            input{
+                width: 100%;
+            }
+            .delete-button{
+                min-width: 30px;
+                min-height: 30px;
+                padding: 0;
+                border: 0;
+                background-image: url('../trash.png');
+                background-size: cover;
+                cursor: pointer;
+            }
+        }
+    }
+    .subelements-panel{
+        width: 100%;
+        margin: 10px 0;
+        margin-left: 20px;
+        .sub-element{
+            margin: 20px 0;
+            border: 3px solid #2a8cee;
+            border-right: 0;
+            position: relative;
+            .delete-element-button{
+                position: absolute;
+                top: -15px;
+                left: -15px;
+                border-radius: 50%;
+                min-width: 30px;
+                min-height: 30px;
+                padding: 0;
+                border: 0;
+                background-image: url('../remove.png');
+                background-size: cover;
+                cursor: pointer;
+            }
+        }
+    }
+}
