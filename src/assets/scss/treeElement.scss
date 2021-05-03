@@ -5,6 +5,11 @@
     flex-wrap: wrap;
     padding: 20px 0;
     width: 100%;
+    border: 3px solid #2a8cee;
+    border-right: 0;
+    box-sizing: border-box;
+    position: relative;
+    margin: 20px 0;
     @media (min-width: 570px) {
         flex-direction: row;
     }
@@ -63,8 +68,8 @@
         margin: 10px 0;
         .sub-element{
             margin: 20px 0;
-            border: 3px solid #2a8cee;
-            border-right: 0;
+            // border: 3px solid #2a8cee;
+            // border-right: 0;
             position: relative;
             margin-left: 20px;
         }

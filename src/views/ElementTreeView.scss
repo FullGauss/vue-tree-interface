@@ -46,16 +46,8 @@
     .editor-workspace{
         display: flex;
         flex-direction: column;
-        padding: 0 10px;
+        padding: 0 20px;
         background-color: #cee4fa;
-        .element-root{
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            position: relative;
-            margin: 20px;
-            padding: 0 10px;
-            border: 3px solid #2a8cee;
-        }
+        min-height: 90vh;
     }
 }

@@ -1,8 +1,18 @@
 <template>
-    <div class="tree-element">
+    <div class="tree-element"
+        draggable="true"
+        dropzone="true"
+        @dragstart="onDragStart($event, localElement)"
+        @dragend="onDragEnd($event, localElement)"
+        @dragleave="onDrugLeave($event)"
+        @drop="onDrop( $event )"
+        @dragover="onDrugOver($event)"
+        @dragenter="onDrugEnter($event)"
+    >
+        <slot name="deleteButton"></slot>
         <div class="attributes-panel">
             <div class="attribute"
-                v-for="(attribute, attributeId) in localAttributes"
+                v-for="(attribute, attributeId) in localElement.attributes"
                 :key="attribute.id"
             >
                 <input
@@ -19,18 +29,25 @@
             <button @click="createNewAttribute">Добавить запись</button>
             <button @click="createNewSubElement">Добавить элемент</button>
         </div>
-        <div class="subelements-panel" v-if="checkCanElementsRender( localElements )">
-            <div 
-                class="sub-element"
-                v-for="(element, elementId) in localElements" 
-                :key="element"
+        <div 
+            class="subelements-panel" 
+            v-if="checkCanElementsRender( localElements )"
+            dropzone="true"
+            @drop="onDrop( $event )"
+            @dragover="onDrugOver($event)"
+            @dragenter="onDrugEnter($event)"
+        >
+                
+            <TreeElement
+                v-for="(element, elementId) in localElement.elements" 
+                :key="elementId"
+                :element="element"
+                @deleteDragElement="deleteElement(elementId)"
             >
-                <TreeElement 
-                    :attributes="element.attributes"
-                    :elements="element.elements"
-                />
-                <button @click="deleteElement(elementId)" class="delete-element-button"></button>
-            </div>
+                <template v-slot:deleteButton>
+                    <button @click="deleteElement(elementId)" class="delete-element-button"></button>
+                </template>
+            </TreeElement>
         </div>
     </div>
 </template>
@@ -42,18 +59,27 @@ import checkCanArrayRender from '@/services/checks'
 
 export default {
     props: {
-        attributes: Array,
-        elements: Array
+        element: Object
     },
-    setup(props) {
+    setup(props, { emit }) {
 
-        const { attributes, elements } = toRefs(props);
+        const { element } = toRefs(props);
+
+        const localElement = computed({
+            get: () => { 
+                return element.value; 
+            },
+            set: (newElement) => {
+                element.value = newElement;
+            }
+
+        });
 
         const localAttributes = computed(()=>{
-            return attributes.value;
+            return localElement.value.attributes;
         });
         const localElements = computed(()=>{
-            return elements.value;
+            return localElement.value.elements;
         });
 
         const createNewAttribute = () => {
@@ -74,7 +100,7 @@ export default {
                 attributes: [],
                 elements: []
             };
-            elements.value.push(newElement);
+            localElements.value.push(newElement);
         };
 
         const deleteAttribute = (attributeNumber) => {
@@ -84,14 +110,53 @@ export default {
             localElements.value.splice(elementNumber, 1)
         };
 
+        const onDragStart = (event) => {
+            event.stopPropagation();
+            event.dataTransfer.clearData();
+            event.dataTransfer.dropEffect = 'move';
+            event.dataTransfer.affectAllowed = 'move';
+            event.dataTransfer.setData('element', JSON.stringify(localElement.value));
+            event.target.style = 'visibility: hidden;';
+        };
+        const onDrop = (event) => {
+            event.stopPropagation();
+            let droppingElement = JSON.parse(event.dataTransfer.getData('element'));
+            localElements.value.push(droppingElement);
+        };
+
+        const onDragEnd = (event) => {
+            event.stopPropagation();
+            emit('deleteDragElement');
+            event.target.style = 'visibility: visible;';
+        };
+        const onDrugOver = (event) => {
+            event.stopPropagation();
+            event.preventDefault();
+        };
+        const onDrugEnter = (event) => {
+            event.stopPropagation();
+            event.preventDefault();
+        };
+        const onDrugLeave = (event) => {
+            event.stopPropagation();
+            event.preventDefault();
+        };
+
         return {
             localAttributes,
             localElements,
+            localElement,
             createNewAttribute,
             checkCanElementsRender,
             createNewSubElement,
             deleteAttribute,
-            deleteElement
+            deleteElement,
+            onDragStart,
+            onDrop,
+            onDragEnd,
+            onDrugOver,
+            onDrugEnter,
+            onDrugLeave
         }
     },
 }
