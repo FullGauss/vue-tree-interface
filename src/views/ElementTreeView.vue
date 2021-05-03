@@ -52,7 +52,8 @@ export default {
            return checkCanArrayRender(checkedElements);
         },
         show() {
-            console.log(this.elementTree);
+            const jsonTree = JSON.stringify(this.elementTree)
+            console.log(jsonTree);
         },
         deleteElement(elementId){
             this.elementTree.elements.splice(elementId, 1)

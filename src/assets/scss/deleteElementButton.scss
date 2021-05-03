@@ -1,0 +1,29 @@
+.delete-element-button{
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    border-radius: 50%;
+    min-width: 30px;
+    min-height: 30px;
+    padding: 0;
+    border: 0;
+    background-image: url('../remove.png');
+    background-size: cover;
+    cursor: pointer;
+}
+.delete-element-button:after { 
+    content: ''; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0; 
+    background: 
+    rgba(0,0,0,.5);  
+    opacity: 0;
+    border-radius: 50%;
+    transition: all 0.2s ease-out;
+}
+.delete-element-button:hover:after { 
+    opacity: 1; 
+}

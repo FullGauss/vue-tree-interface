@@ -1,15 +1,17 @@
 .tree-element{
-    // border: 1px solid #2a7bcc;
     background-color: #cee4fa;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     padding: 20px 0;
     width: 100%;
+    @media (min-width: 570px) {
+        flex-direction: row;
+    }
     .buttons-panel{
-        width: 20%;
         display: flex;
         flex-direction: column;
+        align-items: flex-end;
         button{
             background-color: #ecf5ff;
             border-radius: 5px;
@@ -17,12 +19,21 @@
             border: 1px #b3d8ff solid;
             min-height: 25px;
             cursor: pointer;
+            transition: all 0.2s ease-out;
+            max-width: 200px;
+            width: 100%;
+        }
+        button:hover{
+            background-color: #cee3fc;
+        }
+        @media (min-width: 570px) {
+            width: 20%;
         }
     }
     .attributes-panel{
-        width: 80%;
         display: flex;
         flex-direction: column;
+        margin: 10px 0;
         .attribute{
             display: flex;
             flex-direction: row;
@@ -39,31 +50,27 @@
                 background-image: url('../trash.png');
                 background-size: cover;
                 cursor: pointer;
+                transition: all 0.2s ease-out;
             }
+        }
+        @media (min-width: 570px) {
+            margin: 0;
+            width: 80%;
         }
     }
     .subelements-panel{
         width: 100%;
         margin: 10px 0;
-        margin-left: 20px;
         .sub-element{
             margin: 20px 0;
             border: 3px solid #2a8cee;
             border-right: 0;
             position: relative;
-            .delete-element-button{
-                position: absolute;
-                top: -15px;
-                left: -15px;
-                border-radius: 50%;
-                min-width: 30px;
-                min-height: 30px;
-                padding: 0;
-                border: 0;
-                background-image: url('../remove.png');
-                background-size: cover;
-                cursor: pointer;
-            }
+            margin-left: 20px;
+        }
+
+        @media (min-width: 570px) {
+            margin-left: 20px;
         }
     }
 }
